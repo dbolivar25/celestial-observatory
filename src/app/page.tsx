@@ -7,9 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 const OBLIQUITY = THREE.MathUtils.degToRad(23.44);
@@ -361,28 +359,26 @@ export default function Page() {
         <div className="relative flex-1 rounded-3xl border border-white/10 bg-black/10 shadow-glass backdrop-blur-xl lg:max-w-[68vw] min-h-[460px] lg:min-h-[760px] overflow-hidden">
           <div ref={mountRef} className="absolute inset-0" />
           <div className="pointer-events-none absolute left-4 top-4 z-10 flex items-center gap-3">
-            <Badge className="bg-white/15 text-slate-50 shadow-glass">Earth Seasons Studio</Badge>
-            <div className="text-xs uppercase tracking-[0.2em] text-slate-200/80">
-              Axial tilt · Orbit · Heat map overlay
-            </div>
+            <Badge className="bg-white/12 text-slate-50 shadow-glass">Earth Seasons Studio</Badge>
+            <div className="text-[11px] uppercase tracking-[0.28em] text-slate-200/80">Axial tilt · Orbit · Heat map</div>
           </div>
         </div>
 
         <div className="relative z-10 w-full max-w-[420px] self-start lg:max-w-[460px]">
-          <Card className="glass-panel border border-white/10 bg-white/5 text-slate-100 shadow-glass">
-            <CardHeader className="flex flex-col gap-3 pb-4">
+          <Card className="glass-panel border border-white/15 bg-gradient-to-b from-slate-900/85 via-slate-900/70 to-slate-950/90 text-slate-100 shadow-glass">
+            <CardHeader className="space-y-4 pb-4">
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <CardTitle className="text-2xl font-semibold tracking-tight text-white">
+                <div className="space-y-1">
+                  <p className="text-[11px] uppercase tracking-[0.26em] text-slate-400">Season lab</p>
+                  <CardTitle className="text-2xl font-semibold tracking-tight text-white leading-tight">
                     Full-Orbit Heat Simulation
                   </CardTitle>
-                  <CardDescription className="text-slate-300">
-                    Drag to orbit, scrub the calendar, toggle the heat layer, and watch how the Sun peels across
-                    latitudes through the year.
+                  <CardDescription className="text-sm text-slate-300">
+                    Scrub the year, watch daylight shift, and toggle energy overlay.
                   </CardDescription>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Button variant="secondary" size="sm" onClick={() => setPhase(0)}>
+                  <Button variant="secondary" size="sm" className="justify-center" onClick={() => setPhase(0)}>
                     March Equinox
                   </Button>
                   <Button variant={isPlaying ? "destructive" : "default"} size="sm" onClick={() => setIsPlaying((p) => !p)}>
@@ -390,13 +386,20 @@ export default function Page() {
                   </Button>
                 </div>
               </div>
+
+              <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-300">
+                <span className="rounded-full bg-white/10 px-2 py-1 text-amber-200/90">Heat map</span>
+                <span className="rounded-full bg-white/6 px-2 py-1">Orbit</span>
+                <span className="rounded-full bg-white/6 px-2 py-1">Tilt</span>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <Label className="flex items-center justify-between text-sm uppercase tracking-[0.14em] text-slate-300">
+
+            <CardContent className="space-y-8">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-slate-300">
                   <span>Time of year</span>
-                  <span className="text-xs font-mono text-slate-200">{stats.date}</span>
-                </Label>
+                  <span className="font-mono text-slate-200">{stats.date}</span>
+                </div>
                 <Slider
                   value={[phase]}
                   min={0}
@@ -407,28 +410,29 @@ export default function Page() {
                     setIsPlaying(false);
                   }}
                 />
-                <div className="mt-2 flex items-center justify-between text-sm text-slate-300">
-                  <span>{stats.season}</span>
+                <div className="flex items-center justify-between text-sm text-slate-200">
+                  <span className="font-medium">{stats.season}</span>
                   <span className="font-mono text-amber-200">δ = {stats.decl.toFixed(1)}°</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <StatPill label="Subsolar latitude" value={`${stats.decl.toFixed(1)}°`} accent="amber" />
+                <StatPill label="Subsolar lat" value={`${stats.decl.toFixed(1)}°`} accent="amber" />
                 <StatPill label="Season" value={stats.season} />
                 <StatPill label="Hemisphere" value={stats.hemisphere} accent="cyan" />
-                <StatPill label="Heat overlay" value={heatVisible ? `${Math.round(heatOpacity * 100)}%` : "Off"} accent="orange" />
-                <StatPill label="Spin rate" value={`${spinRate.toFixed(1)}x day`} />
+                <StatPill label="Heat layer" value={heatVisible ? `${Math.round(heatOpacity * 100)}%` : "Off"} accent="orange" />
+                <StatPill label="Spin rate" value={`${spinRate.toFixed(1)}× day`} />
                 <StatPill label="Orbit" value={showOrbit ? "Path visible" : "Hidden"} />
               </div>
 
-              <Separator className="border-slate-800" />
-
-              <div className="space-y-4 rounded-xl border border-white/10 bg-white/5 p-4 shadow-inner shadow-black/40">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-300">Layers</h3>
+              <div className="space-y-4 rounded-2xl border border-white/12 bg-white/5 p-5 shadow-inner shadow-black/30">
+                <div className="flex items-center justify-between">
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-slate-300">Layers</div>
+                  <div className="text-[11px] text-slate-400">Visual stack</div>
+                </div>
                 <LayerToggle
                   label="Heat map"
-                  description="False-color irradiance overlay"
+                  description="False-color irradiance"
                   checked={heatVisible}
                   onCheckedChange={setHeatVisible}
                 />
@@ -441,25 +445,22 @@ export default function Page() {
                 />
                 <LayerToggle
                   label="Clouds"
-                  description="Fast-moving volumetric wrap"
+                  description="Volumetric wrap"
                   checked={showClouds}
                   onCheckedChange={setShowClouds}
                 />
                 <LayerToggle
                   label="Orbit trace"
-                  description="Keep the elliptical path visible"
+                  description="Keep ellipse visible"
                   checked={showOrbit}
                   onCheckedChange={setShowOrbit}
                 />
                 <LayerToggle
                   label="Faster spin"
-                  description="Speed up Earth days"
+                  description="Speed up days"
                   checked={spinRate > 1}
                   onCheckedChange={(v) => setSpinRate(v ? 2 : 1)}
                 />
-                <div className="pt-2 text-xs text-slate-400">
-                  Tip: toggle the heat layer to compare visible-light texture vs energy distribution. The overlay is purely computed from solar incidence.
-                </div>
               </div>
             </CardContent>
           </Card>
