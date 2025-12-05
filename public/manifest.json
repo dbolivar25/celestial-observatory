@@ -1,0 +1,16 @@
+{
+  "name": "Celestial Observatory",
+  "short_name": "Observatory",
+  "description": "An immersive 3D simulation exploring Earth's journey through the seasons",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08070b",
+  "theme_color": "#d4a574",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
