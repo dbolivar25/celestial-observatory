@@ -1,14 +1,28 @@
 import type { Metadata } from "next";
-import { Sora, Manrope, IBM_Plex_Mono } from "next/font/google";
+import { Playfair_Display, Source_Sans_3, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-const display = Sora({ subsets: ["latin"], variable: "--font-display" });
-const body = Manrope({ subsets: ["latin"], variable: "--font-body" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono" });
+const display = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700"]
+});
+
+const body = Source_Sans_3({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["300", "400", "500", "600"]
+});
+
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono"
+});
 
 export const metadata: Metadata = {
-  title: "Earth Seasons Studio",
-  description: "Immersive 3D simulation of Earth's axial tilt, orbit, and heat distribution.",
+  title: "Celestial Observatory",
+  description: "An immersive simulation of Earth's journey through the seasons.",
 };
 
 export default function RootLayout({
@@ -17,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`noise-overlay bg-space text-slate-100 antialiased ${display.variable} ${body.variable} ${mono.variable}`}
+        className={`bg-obsidian text-cream antialiased ${display.variable} ${body.variable} ${mono.variable}`}
       >
         {children}
       </body>
